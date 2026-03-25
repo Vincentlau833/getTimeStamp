@@ -2,17 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Vercel Site</title>
+  <title>Timestamp Copy Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Hello 👋</h1>
+  <h1>Time in / Time out</h1>
 
-  <button onclick="handleClick()">Click Me</button>
+  <button onclick="copyOff()">Copy (Off) Timestamp</button>
+  <button onclick="copyDash1()">Copy - Timestamp</button>
+  <button onclick="copyWfh()">Copy (Wfh) Timestamp</button>
+  <button onclick="copyDash2()">Copy - Timestamp</button>
+
+  <div id="output"></div>
 
   <script>
-    function handleClick() {
-      alert("Button clicked!");
+    // Helper function: get current time as HHMM
+    function getCurrentHHMM() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      return hours + minutes;
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          document.getElementById("output").innerText = `Copied: ${text}`;
+        })
+        .catch(err => {
+          document.getElementById("output").innerText = `Failed to copy: ${err}`;
+        });
+    }
+
+    // Button actions
+    function copyOff() {
+      const text = `(Off) ${getCurrentHHMM()}`;
+      copyText(text);
+    }
+
+    function copyDash1() {
+      const text = `-${getCurrentHHMM()}`;
+      copyText(text);
+    }
+
+    function copyWfh() {
+      const text = `(Wfh) ${getCurrentHHMM()}`;
+      copyText(text);
+    }
+
+    function copyDash2() {
+      const text = `-${getCurrentHHMM()}`;
+      copyText(text);
     }
   </script>
 
